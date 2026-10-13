@@ -1,5 +1,7 @@
 # PharmaFlow Intelligence
 
+**Live demo:** https://pharmaflow-intelligence-m32v83fuw49zpagmwvmir5.streamlit.app/
+
 End-to-end pharmaceutical warehouse and supply-chain **process intelligence** platform: SQL KPI analytics, process mining, master-data quality, scenario simulation, Power BI-ready exports and a Business Process Architecture documentation pack.
 
 > **All data is synthetic.** The company (Nordvale Pharmaceuticals), records, results and costs are fictional. No Merck systems or data were accessed. This is process design, not SAP configuration.

@@ -22,9 +22,11 @@ CFG = load_config()
 DB = db_path(CFG)
 START = pd.Timestamp(CFG["data"]["start_date"]); END = START + pd.DateOffset(months=CFG["data"]["months"])
 FMT = "%Y-%m-%d %H:%M:%S"
-if not DB.exists():
-    st.error("Database not found. Build it from a terminal:  `bash scripts/run_pipeline.sh`")
-    st.stop()
+if not DB.exists():   # fresh clone or Streamlit Cloud: build the synthetic dataset on first run
+    from src.data.db import build_database
+    from src.data.generator import generate
+    with st.spinner("First run: generating the synthetic dataset (about 20 seconds)..."):
+        build_database(generate(CFG), DB)
 MT = DB.stat().st_mtime
 
 

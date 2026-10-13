@@ -1,0 +1,84 @@
+project:
+  name: PharmaFlow Intelligence
+  fictional_company: Nordvale Pharmaceuticals (fictional, synthetic data only)
+paths:
+  raw: data/raw
+  processed: data/processed
+  exports: data/exports
+  database: data/processed/pharmaflow.db
+  reports: reports
+data:
+  seed: 42
+  start_date: "2024-01-01"
+  months: 24
+  n_materials: 120
+  n_suppliers: 25
+  n_purchase_orders: 1200
+  n_customer_orders: 3000
+  n_production_requests: 800
+  open_hold_rate: 0.015
+  invalid_transitions: 25
+  invalid_uom_rate: 0.05
+  master_data_missing_rates:
+    shelf_life_days: 0.05
+    storage_condition: 0.04
+    abc_class: 0.03
+    gmp_relevant: 0.03
+    net_weight_kg: 0.06
+kpi_targets:
+  inventory_record_accuracy: {target: 0.98, direction: higher, unit: ratio}
+  supplier_on_time_delivery: {target: 0.90, direction: higher, unit: ratio}
+  receiving_to_putaway_hours: {target: 24, direction: lower, unit: hours}
+  quality_hold_hours: {target: 48, direction: lower, unit: hours}
+  order_fulfilment_rate: {target: 0.95, direction: higher, unit: ratio}
+  on_time_dispatch_rate: {target: 0.92, direction: higher, unit: ratio}
+  order_to_dispatch_hours: {target: 72, direction: lower, unit: hours}
+  process_rework_rate: {target: 0.05, direction: lower, unit: ratio}
+  process_deviation_rate: {target: 0.08, direction: lower, unit: ratio}
+  master_data_completeness: {target: 0.98, direction: higher, unit: ratio}
+  stockout_rate: {target: 0.05, direction: lower, unit: ratio}
+scenarios:
+  baseline:
+    label: Baseline operations
+    supplier_lead_time_mult: 1.0
+    demand_growth: 0.0
+    receiving_hours: 3.0
+    putaway_hours: 7.0
+    picking_hours: 0.8
+    warehouse_capacity_mult: 1.0
+    reorder_point_mult: 1.0
+    safety_stock_mult: 1.0
+    holding_cost_rate: 0.22
+    expiry_window_days: 90
+  disruption:
+    label: Supplier disruption and increased demand
+    supplier_lead_time_mult: 1.5
+    demand_growth: 0.25
+    receiving_hours: 3.0
+    putaway_hours: 7.0
+    picking_hours: 0.8
+    warehouse_capacity_mult: 1.0
+    reorder_point_mult: 1.0
+    safety_stock_mult: 1.0
+    holding_cost_rate: 0.22
+    expiry_window_days: 90
+  improvement:
+    label: Proposed warehouse process improvements
+    supplier_lead_time_mult: 1.0
+    demand_growth: 0.0
+    receiving_hours: 2.0
+    putaway_hours: 4.0
+    picking_hours: 0.6
+    warehouse_capacity_mult: 1.0
+    reorder_point_mult: 1.1
+    safety_stock_mult: 1.2
+    holding_cost_rate: 0.22
+    expiry_window_days: 90
+model:
+  base_replenishment_days: 10     # starting value only; calibrated so baseline stockout risk matches observed stockout rate
+  order_cycle_days: 45
+  labor_cost_per_hour: 35
+  stockout_penalty_rate: 0.15     # share of unit cost lost per backordered unit
+  capacity_headroom: 1.25
+  horizon_days: 365
+  expiry_remaining_shelf_share: 0.3

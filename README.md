@@ -49,4 +49,7 @@ python -m pytest -q
 Single-line orders; per-order stockout flags; one inventory snapshot; day-level OTD; mixed units; embedded synthetic effects mean findings demonstrate method, not real operations.
 
 ## Screenshots
-_Add after launching the app._
+![Executive Overview](docs/screenshots/01_executive_overview.png)
+![Process Mining](docs/screenshots/02_process_mining.png)
+![Scenario Simulator](docs/screenshots/03_scenario_simulator.png)
+![Data Quality](docs/screenshots/04_data_quality.png)
